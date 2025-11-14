@@ -1,0 +1,23 @@
+
+/* Reset some default styles */
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Dark mode specific styles */
+.dark .dashboard-card {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+}
+
+/* Ensure text is visible in dark mode */
+.dark .text-foreground {
+  color: hsl(var(--foreground));
+}
+
+.dark .text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
