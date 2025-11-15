@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { getWeek, parseISO } from 'date-fns';
 import { Chart } from '@/components/ui/charts'; // Updated import path to charts 
@@ -17,11 +18,8 @@ const Analytics: React.FC = () => {
   useEffect(() => {
     const fetchWeeklyAttendance = async () => {
       try {
-        const response = await fetch(`${process.env.API_BASE_URL}/api/weekly-attendance-report?batch=6`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/weekly-attendance-report?batch=6`);
+        const data = await response.data;   
         setWeeklyAttendance(data.reports);
       } catch (error) {
         setError(error);
@@ -30,6 +28,8 @@ const Analytics: React.FC = () => {
       }
     };
 
+
+    
     fetchWeeklyAttendance();
   }, []);
 

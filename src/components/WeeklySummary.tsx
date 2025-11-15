@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
@@ -32,11 +33,8 @@ const WeeklySummary: React.FC = () => {
   useEffect(() => {
     const fetchWeeklyAttendance = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/weekly-attendance-report?batch=6');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/weekly-attendance-report?batch=6`);  
+        const data = await response.data;
         setWeeklyAttendance(data.reports);
         if (data.reports.length > 0) {
           setSelectedWeek(data.reports[data.reports.length - 1].weekNumber.toString());
