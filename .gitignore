@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .env
 .env.test
+.local.env
 .DS_Store
 *.suo
 *.ntvs*
