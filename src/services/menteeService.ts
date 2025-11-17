@@ -28,6 +28,7 @@ export interface Mentee {
   contact_number_2_dial_code: string;
   parent_contact_number_dial_code: string;
   priority?: "P0" | "P1" | "P2" | "P3" | null;
+    attendancePercentage?: number | null;
 }
 
 class MenteeService {

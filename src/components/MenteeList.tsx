@@ -94,7 +94,7 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
               <TableHead>Status</TableHead>
               <TableHead>POC</TableHead>
               <TableHead>Week</TableHead>
-              <TableHead className="hidden md:table-cell">Last Attendance</TableHead>
+              <TableHead>Attendance %</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -143,9 +143,9 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
                   />
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {mentee.lastAttendance ? 
-                    format(addDays(new Date(mentee.lastAttendance), 0), 'dd/MM/yyyy') : 
-                    'Never'
+                  {mentee.attendancePercentage !== null && mentee.attendancePercentage !== undefined ? 
+                    `${mentee.attendancePercentage.toFixed(2)}%` : 
+                    'N/A'
                   }
                 </TableCell>
               </TableRow>
