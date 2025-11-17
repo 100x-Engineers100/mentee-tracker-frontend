@@ -34,7 +34,7 @@ const WeeklySummary: React.FC = () => {
     const fetchWeeklyAttendance = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/weekly-attendance-report?batch=6`);  
-        const data = await response.data;
+        const data = response.data;
         setWeeklyAttendance(data.reports);
         if (data.reports.length > 0) {
           setSelectedWeek(data.reports[data.reports.length - 1].weekNumber.toString());

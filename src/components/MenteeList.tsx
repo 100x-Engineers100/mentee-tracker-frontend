@@ -144,7 +144,7 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
                   {mentee.lastAttendance ? 
-                    format(addDays(new Date(mentee.lastAttendance), 1), 'dd/MM/yyyy') : 
+                    format(addDays(new Date(mentee.lastAttendance), 0), 'dd/MM/yyyy') : 
                     'Never'
                   }
                 </TableCell>
