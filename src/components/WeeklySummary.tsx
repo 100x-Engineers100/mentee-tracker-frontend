@@ -14,17 +14,23 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { googleSheetsService } from '@/services/googleSheetsService';
+
 import { useToast } from '@/hooks/use-toast';
 import { Calendar, Download, FileText } from 'lucide-react';
+
+interface WeeklyAttendanceReport {
+  weekNumber: number;
+  totalMentees: number;
+  totalPresent: number;
+  totalAbsent: number;
+}
 
 const WeeklySummary: React.FC = () => {
   const [selectedWeek, setSelectedWeek] = useState('');
   const [format, setFormat] = useState('pdf');
   const [isLoading, setIsLoading] = useState(false);
-  const [weeklyAttendance, setWeeklyAttendance] = useState([]);
-  const [loadingData, setLoadingData] = useState(true);
-  const [error, setError] = useState(null);
+  const [weeklyAttendance, setWeeklyAttendance] = useState<WeeklyAttendanceReport[]>([]);
+
   const { toast } = useToast();
 
   const cohortStartDate = parseISO('2025-11-06T00:00:00.000Z');
@@ -34,20 +40,23 @@ const WeeklySummary: React.FC = () => {
     const fetchWeeklyAttendance = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/weekly-attendance-report?batch=6`);  
-        const data = response.data;
+        const data = response.data as { reports: WeeklyAttendanceReport[] };
         setWeeklyAttendance(data.reports);
         if (data.reports.length > 0) {
           setSelectedWeek(data.reports[data.reports.length - 1].weekNumber.toString());
         }
       } catch (error) {
-        setError(error);
-      } finally {
-        setLoadingData(false);
+        console.error("Error in fetchWeeklyAttendance:", error);
+        toast({
+          variant: "destructive",
+          title: "Failed to load weekly attendance",
+          description: "There was an error loading weekly attendance data. Please check the backend service.",
+        });
       }
     };
 
     fetchWeeklyAttendance();
-  }, []);
+  }, [toast]);
 
   const handleDownload = () => {
     setIsLoading(true);

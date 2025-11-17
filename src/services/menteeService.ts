@@ -27,8 +27,8 @@ export interface Mentee {
   contact_number_dial_code: string;
   contact_number_2_dial_code: string;
   parent_contact_number_dial_code: string;
-  priority?: "P0" | "P1" | "P2" | "P3" | null;
-    attendancePercentage?: number | null;
+  priority?: "P0" | "P1" | "P2" | "P3" | "P4" | null;
+  attendancePercentage?: number | null;
 }
 
 class MenteeService {
@@ -50,7 +50,8 @@ class MenteeService {
         P1: 1,
         P2: 2,
         P3: 3,
-        null: 4, // null or undefined priorities come last
+        P4: 4,
+        null: 5, // null or undefined priorities come last
       };
 
       // Sort mentees by priority

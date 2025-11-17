@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
@@ -16,7 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { RefreshCw, Save, BarChart3, FileText, ListFilter, Users, Upload } from 'lucide-react';
+import { BarChart3, FileText, ListFilter, Users, Upload } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { menteeService, Mentee } from '@/services/menteeService';
@@ -32,19 +32,7 @@ const Dashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('mentees');
 
-  useEffect(() => {
-    loadMenteeData();
-  }, []);
-
-  const handleUpdateMentee = (updatedMentee: Mentee) => {
-    setMentees(prevMentees =>
-      prevMentees.map(mentee =>
-        mentee.id === updatedMentee.id ? updatedMentee : mentee
-      )
-    );
-  };
-
-  const loadMenteeData = async () => {
+  const loadMenteeData = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await menteeService.getMentees('6');
@@ -58,6 +46,18 @@ const Dashboard: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+  }, [toast]);
+
+  useEffect(() => {
+    loadMenteeData();
+  }, [loadMenteeData]);
+
+  const handleUpdateMentee = (updatedMentee: Mentee) => {
+    setMentees(prevMentees =>
+      prevMentees.map(mentee =>
+        mentee.id === updatedMentee.id ? updatedMentee : mentee
+      )
+    );
   };
 
   // Filter mentees based on selected criteria
@@ -93,6 +93,7 @@ const Dashboard: React.FC = () => {
     P1: mentees.filter(m => m.priority === 'P1').length,
     P2: mentees.filter(m => m.priority === 'P2').length,
     P3: mentees.filter(m => m.priority === 'P3').length,
+    P4: mentees.filter(m => m.priority === 'P4').length,
     total: mentees.length
   };
 
@@ -114,7 +115,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Summary Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
           <div className="bg-card rounded-lg p-4 shadow-sm border">
             <div className="text-sm text-muted-foreground">Total Mentees</div>
             <div className="text-2xl font-bold">{priorityCounts.total}</div>
@@ -134,6 +135,10 @@ const Dashboard: React.FC = () => {
           <div className="bg-card rounded-lg p-4 shadow-sm border border-blue-200 bg-blue-50/30">
             <div className="text-sm text-muted-foreground">P3</div>
             <div className="text-2xl font-bold">{priorityCounts.P3}</div>
+          </div>
+          <div className="bg-card rounded-lg p-4 shadow-sm border border-purple-200 bg-purple-50/30">
+            <div className="text-sm text-muted-foreground">P4</div>
+            <div className="text-2xl font-bold">{priorityCounts.P4}</div>
           </div>
         </div>
 
@@ -208,6 +213,14 @@ const Dashboard: React.FC = () => {
                   className="border-blue-300"
                 >
                   P3
+                </Button>
+                <Button 
+                  variant={filterPriority === 'P4' ? "secondary" : "outline"} 
+                  size="sm"
+                  onClick={() => setFilterPriority(filterPriority === 'P4' ? null : 'P4')}
+                  className="border-purple-300"
+                >
+                  P4
                 </Button>
               </div>
             </div>

@@ -43,8 +43,8 @@ const Index = () => {
       <main className="flex-1 container mx-auto max-w-7xl px-4 py-8 md:py-12">
         {/* Welcome Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">Welcome to Mentee Tracker</h1>
-          <p className="text-lg text-gray-200">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">Welcome to Mentee Tracker</h1>
+          <p className="text-lg text-muted-foreground">
             Your central hub for managing mentorship programs
           </p>
         </div>
@@ -59,7 +59,7 @@ const Index = () => {
             className="bg-mentee-orange/10 border-mentee-orange/20 dark:bg-mentee-orange/20 dark:border-mentee-orange/30"
             onClick={handleNavigateToDashboard}
           >
-            <p className="text-sm text-gray-100 mb-4">
+            <p className="text-sm text-muted-foreground mb-4">
               Access detailed mentee tracking and attendance management
             </p>
             <div className="mt-auto">
@@ -119,7 +119,7 @@ const Index = () => {
           </DashboardCard>
         </div>
       </main>
-      <footer className="py-6 text-center text-sm text-gray-900">
+      <footer className="py-6 text-center text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Mentee Tracker • All rights reserved</p>
       </footer>
     </div>

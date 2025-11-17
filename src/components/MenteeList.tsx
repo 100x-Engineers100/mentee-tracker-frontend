@@ -38,6 +38,7 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
       case 'P1': return 'bg-orange-100 text-orange-800 border-orange-200';
       case 'P2': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'P3': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'P4': return 'bg-green-100 text-green-800 border-green-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
@@ -70,7 +71,8 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
     mentee.priority === 'P0' || 
     mentee.priority === 'P1' || 
     mentee.priority === 'P2' || 
-    mentee.priority === 'P3'
+    mentee.priority === 'P3' ||
+    mentee.priority === 'P4'
   );
 
   if (filteredMentees.length === 0) {
@@ -124,6 +126,10 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
                   ) : mentee.priority === 'P3' ? (
                     <Badge className={`${getPriorityColor('P3')}`}>
                       P3
+                    </Badge>
+                  ) : mentee.priority === 'P4' ? (
+                    <Badge className={`${getPriorityColor('P4')}`}>
+                      P4
                     </Badge>
                   ) : (
                     <span className="text-muted-foreground text-sm">None</span>
