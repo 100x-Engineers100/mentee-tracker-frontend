@@ -144,7 +144,7 @@ const MenteeList: React.FC<MenteeListProps> = ({ mentees: initialMentees, isLoad
                 <TableCell>
                   {/* Assuming currentWeek can be derived or is part of the mentee object */}
                   <WeekBadge 
-                    week={1} // Placeholder, needs actual week logic
+                    week={mentee.currentWeek || 1} // Placeholder, needs actual week logic
                     status={mentee.status === 'Completed' ? 'completed' : 'active'}
                   />
                 </TableCell>

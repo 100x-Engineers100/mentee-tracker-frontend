@@ -7,6 +7,7 @@ export interface Mentee {
   email: string | null;
   role: string;
   status: string;
+  currentWeek?: number | null;
   registration_number: string;
   user_username: string;
   phone: string;
