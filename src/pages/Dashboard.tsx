@@ -245,6 +245,9 @@ const Dashboard: React.FC = () => {
               <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('DNR')}>
                 DNR
               </Badge>
+              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Message Sent')}>
+                Message Sent
+              </Badge>
             </div>
 
             {/* POC filter */}

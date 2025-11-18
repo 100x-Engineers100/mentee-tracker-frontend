@@ -64,6 +64,7 @@ const Analytics: React.FC = () => {
     { name: 'Support Needed', value: googleSheetsService.getStatusCount('Support Needed') },
     { name: 'Completed', value: googleSheetsService.getStatusCount('Completed') },
     { name: 'DNR', value: googleSheetsService.getStatusCount('DNR') },
+    { name: 'Message Sent', value: googleSheetsService.getStatusCount('Message Sent') },
   ];
 
   return (
