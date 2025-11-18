@@ -82,14 +82,14 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
       });
       onUpdateMentee(response.data);
       toast({
-        title: `${field === 'status' ? 'Status' : 'POC'} updated`,
-        description: `Mentee's ${field === 'status' ? 'status' : 'POC'} has been updated to ${value}.`,
+        title: `${field === 'status' ? 'Status' : field === 'poc' ? 'POC' : 'Phone'} updated`,
+        description: `Mentee's ${field === 'status' ? 'status' : field === 'poc' ? 'POC' : 'phone'} has been updated to ${value}.`,
       });
     } catch (error) {
       toast({
         variant: 'destructive',
-        title: `Failed to update ${field === 'status' ? 'status' : 'POC'}`,
-        description: `There was an error updating the mentee's ${field === 'status' ? 'status' : 'POC'}.`,
+        title: `Failed to update ${field === 'status' ? 'status' : field === 'poc' ? 'POC' : 'phone'}`,
+        description: `There was an error updating the mentee's ${field === 'status' ? 'status' : field === 'poc' ? 'POC' : 'phone'}.`,
       });
     }
   };
