@@ -243,6 +243,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
                 <span className="text-sm text-muted-foreground">Phone:</span>
                 <input
                   type="text"
+                  autoFocus={false}
                   value={selectedPhone}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -251,7 +252,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
                     }
                   }}
                   onBlur={() => handlePhoneChange(selectedPhone)}
-                  className="ml-2 border rounded-md px-2 py-1 bg-black text-white w-[180px]"
+                  className="ml-2 border rounded-md px-2 py-1 bg-background text-foreground w-[180px]"
                 />
               </div>
                 <div>
