@@ -41,6 +41,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
   const [isSaving, setIsSaving] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(mentee.status);
   const [selectedPoc, setSelectedPoc] = useState(mentee.poc || '');
+  const [selectedPhone, setSelectedPhone] = useState(mentee.phone || '');
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -49,6 +50,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
       loadMenteeNotes();
       setSelectedStatus(mentee.status);
       setSelectedPoc(mentee.poc || '');
+      setSelectedPhone(mentee.phone || '');
     }
   }, [isOpen, mentee]);
 
@@ -73,7 +75,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
     }
   };
 
-  const handleUpdateMentee = async (field: 'status' | 'poc', value: string | null) => {
+  const handleUpdateMentee = async (field: 'status' | 'poc' | 'phone', value: string | null) => {
     try {
       const response = await axios.put<Mentee>(`${import.meta.env.VITE_API_BASE_URL}/mentees/${mentee.id}`, {
         [field]: value,
@@ -101,6 +103,12 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
     const backendValue = value === 'null' ? null : value;
     setSelectedPoc(value);
     await handleUpdateMentee('poc', backendValue);
+  };
+
+  const handlePhoneChange = async (value: string) => {
+    const backendValue = value.trim() === '' ? null : value.trim();
+    setSelectedPhone(value);
+    await handleUpdateMentee('phone', backendValue);
   };
 
   const handleAddNote = async () => {
@@ -231,9 +239,20 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
                 <span className="text-sm text-muted-foreground">Email:</span>
                 <span className="ml-2">{mentee.email}</span>
               </div>
-              <div>
+              <div className='flex items-center gap-2'>
                 <span className="text-sm text-muted-foreground">Phone:</span>
-                <span className="ml-2">{mentee.phone}</span>
+                <input
+                  type="text"
+                  value={selectedPhone}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value) || value === '') {
+                      setSelectedPhone(value);
+                    }
+                  }}
+                  onBlur={() => handlePhoneChange(selectedPhone)}
+                  className="ml-2 border rounded-md px-2 py-1 bg-black text-white w-[180px]"
+                />
               </div>
                 <div>
                 <span className="text-sm text-muted-foreground">Last Attendance:</span>
