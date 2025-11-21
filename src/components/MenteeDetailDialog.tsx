@@ -244,7 +244,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
                 <span className="text-sm text-muted-foreground">Phone:</span>
                 <input
                   type="text"
-                  autoFocus={false}
+                  tabIndex={-1}
                   value={selectedPhone}
                   onChange={(e) => {
                     const value = e.target.value;

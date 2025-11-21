@@ -176,14 +176,14 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="flex gap-2 flex-wrap">
                 <Button 
-                  variant={filterPriority === null ? "secondary" : "outline"} 
+                  variant={filterPriority === null ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(null)}
                 >
                   All
                 </Button>
                 <Button 
-                  variant={filterPriority === 'P0' ? "secondary" : "outline"} 
+                  variant={filterPriority === 'P0' ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(filterPriority === 'P0' ? null : 'P0')}
                   className="border-red-300"
@@ -191,7 +191,7 @@ const Dashboard: React.FC = () => {
                   P0
                 </Button>
                 <Button 
-                  variant={filterPriority === 'P1' ? "secondary" : "outline"} 
+                  variant={filterPriority === 'P1' ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(filterPriority === 'P1' ? null : 'P1')}
                   className="border-orange-300"
@@ -199,7 +199,7 @@ const Dashboard: React.FC = () => {
                   P1
                 </Button>
                 <Button 
-                  variant={filterPriority === 'P2' ? "secondary" : "outline"} 
+                  variant={filterPriority === 'P2' ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(filterPriority === 'P2' ? null : 'P2')}
                   className="border-yellow-300"
@@ -207,7 +207,7 @@ const Dashboard: React.FC = () => {
                   P2
                 </Button>
                 <Button 
-                  variant={filterPriority === 'P3' ? "secondary" : "outline"} 
+                  variant={filterPriority === 'P3' ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(filterPriority === 'P3' ? null : 'P3')}
                   className="border-blue-300"
@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
                   P3
                 </Button>
                 <Button 
-                  variant={filterPriority === 'P4' ? "secondary" : "outline"} 
+                  variant={filterPriority === 'P4' ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setFilterPriority(filterPriority === 'P4' ? null : 'P4')}
                   className="border-purple-300"
@@ -227,40 +227,44 @@ const Dashboard: React.FC = () => {
             
             {/* Status filter */}
             <div className="flex flex-wrap gap-2 mb-6">
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus(null)}>
+              <Badge variant={filterStatus === null ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus(null)}>
                 All Statuses
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('In Progress')}>
+              <Badge variant={filterStatus === 'In Progress' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('In Progress')}>
                 In Progress
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Call Later')}>
+              <Badge variant={filterStatus === 'Call Later' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Call Later')}>
                 Call Later
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Support Needed')}>
+              <Badge variant={filterStatus === 'Support Needed' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Support Needed')}>
                 Support Needed
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Completed')}>
+              <Badge variant={filterStatus === 'Completed' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Completed')}>
                 Completed
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('DNR')}>
+              <Badge variant={filterStatus === 'DNR' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('DNR')}>
                 DNR
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Message Sent')}>
+              <Badge variant={filterStatus === 'Message Sent' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterStatus('Message Sent')}>
                 Message Sent
               </Badge>
             </div>
 
             {/* POC filter */}
             <div className="flex flex-wrap gap-2 mb-6">
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc(null)}>
+              <Badge variant={filterPoc === null ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc(null)}>
                 All POCs
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc('Omkar Wankhede')}>
+              <Badge variant={filterPoc === 'Omkar Wankhede' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc('Omkar Wankhede')}>
                 Omkar Wankhede
               </Badge>
-              <Badge variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc('Omkar Thorat')}>
+              <Badge variant={filterPoc === 'Omkar Thorat' ? "default" : "outline"} className="cursor-pointer hover:bg-accent" onClick={() => setFilterPoc('Omkar Thorat')}>
                 Omkar Thorat
               </Badge>
+            </div>
+
+            <div className="flex justify-end mb-4">
+              <p className="text-lg font-semibold">Total mentees: {filteredMentees.length}</p>
             </div>
 
             {/* Mentee List */}
