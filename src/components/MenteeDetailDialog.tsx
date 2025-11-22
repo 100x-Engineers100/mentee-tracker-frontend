@@ -23,6 +23,7 @@ export interface CheckInNote {
   timestamp: string;
   noteContent: string;
   executiveName: string;
+  weekNumber?: number;
 }
 
 interface MenteeDetailDialogProps {
@@ -42,6 +43,8 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
   const [selectedStatus, setSelectedStatus] = useState(mentee.status);
   const [selectedPoc, setSelectedPoc] = useState(mentee.poc || '');
   const [selectedPhone, setSelectedPhone] = useState(mentee.phone || '');
+  const [newNoteWeekNumber, setNewNoteWeekNumber] = useState<number | null>(null);
+  const [editedNoteWeekNumber, setEditedNoteWeekNumber] = useState<number | null>(null);
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -51,6 +54,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
       setSelectedStatus(mentee.status);
       setSelectedPoc(mentee.poc || '');
       setSelectedPhone(mentee.phone || '');
+      setNewNoteWeekNumber(null);
     }
   }, [isOpen, mentee]);
 
@@ -125,6 +129,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
         timestamp,
         noteContent: newNote.trim(),
         executiveName: user.name,
+        weekNumber: newNoteWeekNumber,
       });
       const newCheckInNote = response.data;
 
@@ -149,6 +154,7 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
   const startEditingNote = (note: CheckInNote) => {
     setEditingNoteId(note.id);
     setEditedNoteContent(note.noteContent);
+    setEditedNoteWeekNumber(note.weekNumber || null);
   };
 
   const cancelEditingNote = () => {
@@ -167,7 +173,8 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
 
       const response = await axios.put<CheckInNote>(`${import.meta.env.VITE_API_BASE_URL}/checkin-notes/${noteId}`, {
         ...noteToUpdate,
-        noteContent: editedNoteContent.trim()
+        noteContent: editedNoteContent.trim(),
+        weekNumber: editedNoteWeekNumber,
       });
       const updatedNote = response.data;
 
@@ -315,6 +322,17 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
 
           {/* Add new note */}
           <div className="mb-6">
+            <div className="mb-2">
+              <label htmlFor="weekNumber" className="text-sm font-medium text-muted-foreground mr-2">Week Number:</label>
+              <input
+                type="number"
+                id="weekNumber"
+                value={newNoteWeekNumber === null ? '' : newNoteWeekNumber}
+                onChange={(e) => setNewNoteWeekNumber(e.target.value === '' ? null : parseInt(e.target.value))}
+                className="border rounded-md px-2 py-1 bg-background text-foreground w-[80px]"
+                min="1"
+              />
+            </div>
             <Textarea
               placeholder="Add a new check-in note..."
               value={newNote}
@@ -355,6 +373,17 @@ const MenteeDetailDialog: React.FC<MenteeDetailDialogProps> = ({ mentee, isOpen,
 
                   {editingNoteId === note.id ? (
                     <div className="mt-2">
+                      <div className="mb-2">
+                        <label htmlFor="editWeekNumber" className="text-sm font-medium text-muted-foreground mr-2">Week Number:</label>
+                        <input
+                          type="number"
+                          id="editWeekNumber"
+                          value={editedNoteWeekNumber === null ? '' : editedNoteWeekNumber}
+                          onChange={(e) => setEditedNoteWeekNumber(e.target.value === '' ? null : parseInt(e.target.value))}
+                          className="border rounded-md px-2 py-1 bg-background text-foreground w-[80px]"
+                          min="1"
+                        />
+                      </div>
                       <Textarea
                         value={editedNoteContent}
                         onChange={(e) => setEditedNoteContent(e.target.value)}

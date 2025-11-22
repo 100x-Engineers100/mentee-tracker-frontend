@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import MenteeList from '@/components/MenteeList';
 import Analytics from '@/components/Analytics';
 import WeeklySummary from '@/components/WeeklySummary';
-import QuickNotes from '@/components/QuickNotes';
+import QuickNotesList from '@/components/QuickNotesList';
 import PreviewImport from '@/components/PreviewImport';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -279,8 +279,12 @@ const Dashboard: React.FC = () => {
             <WeeklySummary />
           </TabsContent>
 
-          <TabsContent value="notes" className="pt-6">
+          {/* <TabsContent value="notes" className="pt-6">
             <QuickNotes />
+          </TabsContent> */}
+
+          <TabsContent value="notes" className="pt-6 sticky top-0 z-10 bg-background">
+            <QuickNotesList />
           </TabsContent>
 
           <TabsContent value="import" className="pt-6">
